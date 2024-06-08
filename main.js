@@ -269,9 +269,12 @@ class App {
       typeof window.orientation !== "undefined" ? window.orientation : 0;
 
     if (e.gamma === null && e.beta === null) {
+      this.engine.gravity.scale = 0.001;
       this.engine.gravity.x = 0;
       this.engine.gravity.y = 1;
     } else {
+      this.engine.gravity.scale = 0.0025;
+
       if (orientation === 0) {
         this.engine.gravity.x = Common.clamp(e.gamma, -90, 90) / 90;
         this.engine.gravity.y = Common.clamp(e.beta, -90, 90) / 90;
