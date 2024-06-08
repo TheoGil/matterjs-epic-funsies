@@ -1,0 +1,23 @@
+{
+  "name": "epic-2d-physics",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "chromotome": "^1.21.4",
+    "gsap": "^3.12.5",
+    "matter-js": "^0.19.0",
+    "path-data-polyfill": "^1.0.6",
+    "pathseg": "^1.2.1",
+    "poly-decomp": "^0.3.0",
+    "tweakpane": "^4.0.3"
+  }
+}
