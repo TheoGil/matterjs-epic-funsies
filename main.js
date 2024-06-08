@@ -18,6 +18,8 @@ import * as tome from "chromotome";
 
 const SVG_WIDTH = 41.8;
 const SVG_HEIGHT = 49.7;
+const DPR = window.devicePixelRatio;
+const DENSITY = 0.00025;
 
 Common.setDecomp(PolyDecomp);
 
@@ -59,8 +61,8 @@ class App {
     Runner.run(this.runner, this.engine);
 
     this.canvasEl = document.createElement("canvas");
-    this.canvasEl.width = window.innerWidth;
-    this.canvasEl.height = window.innerHeight;
+    this.canvasEl.width = window.innerWidth * DPR;
+    this.canvasEl.height = window.innerHeight * DPR;
     this.canvasEl.style.zIndex = "1";
     // this.canvasEl.style.pointerEvents = "none";
     this.ctx = this.canvasEl.getContext("2d");
@@ -72,9 +74,12 @@ class App {
   }
 
   initWalls() {
-    const { innerWidth: w, innerHeight: h } = window;
+    const { innerWidth, innerHeight } = window;
 
-    const padding = 10;
+    const w = innerWidth * DPR;
+    const h = innerHeight * DPR;
+
+    const padding = 10 * DPR;
 
     const options = {
       isStatic: true,
@@ -117,11 +122,12 @@ class App {
 
     const SVG_SIZE = Math.max(SVG_WIDTH, SVG_HEIGHT);
     const maxAttempsToPosition = 10;
-    const RATIO = 0.00025;
-    const count = Math.round(window.innerWidth * window.innerHeight * RATIO);
+    const count = Math.round(
+      this.canvasEl.width * this.canvasEl.height * DENSITY
+    );
 
     for (let i = 0; i < count; i++) {
-      const scale = Common.random(0.25, 2);
+      const scale = Common.random(0.25 * DPR, 2 * DPR);
       let isColliding = true;
       let attempsToPosition = 0;
       let x = 0;
@@ -132,8 +138,8 @@ class App {
       );
 
       while (isColliding && attempsToPosition < maxAttempsToPosition) {
-        x = Math.random() * window.innerWidth;
-        y = Math.random() * window.innerHeight;
+        x = Math.random() * this.canvasEl.width;
+        y = Math.random() * this.canvasEl.height;
 
         if (this.shapes.length > 0) {
           // Perform circle to circle collision detection from potential new body
@@ -225,8 +231,8 @@ class App {
     // this.debugRenderer.canvas.height = window.innerHeight;
     // Matter.Render.setPixelRatio(render, window.devicePixelRatio); // added this
 
-    this.canvasEl.width = window.innerWidth;
-    this.canvasEl.height = window.innerHeight;
+    this.canvasEl.width = window.innerWidth * DPR;
+    this.canvasEl.height = window.innerHeight * DPR;
 
     this.palette = tome.get();
     // this.debugRenderer.options.background = this.palette.background;
