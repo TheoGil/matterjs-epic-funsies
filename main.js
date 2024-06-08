@@ -29,6 +29,7 @@ class App {
   constructor() {
     this.draw = this.draw.bind(this);
     this.updateGravity = this.updateGravity.bind(this);
+    this.updatePalette = this.updatePalette.bind(this);
 
     this.palette = tome.get();
 
@@ -71,6 +72,9 @@ class App {
     Events.on(this.runner, "tick", this.draw);
 
     window.addEventListener("deviceorientation", this.updateGravity, false);
+
+    this.buttonEl = document.querySelector("[data-button]");
+    this.buttonEl.addEventListener("click", this.updatePalette);
   }
 
   initWalls() {
@@ -295,6 +299,10 @@ class App {
         this.engine.gravity.y = Common.clamp(e.gamma, -90, 90) / 90;
       }
     }
+  }
+
+  updatePalette() {
+    this.onResize();
   }
 }
 
