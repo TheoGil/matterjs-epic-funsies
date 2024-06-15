@@ -31,7 +31,7 @@ class App {
     this.updateGravity = this.updateGravity.bind(this);
     this.updatePalette = this.updatePalette.bind(this);
 
-    this.palette = tome.get();
+    this.pickRandomPalette();
 
     this.engine = Engine.create({
       positionIterations: 1,
@@ -260,7 +260,7 @@ class App {
     this.canvasEl.width = window.innerWidth * DPR;
     this.canvasEl.height = window.innerHeight * DPR;
 
-    this.palette = tome.get();
+    this.pickRandomPalette();
     // this.debugRenderer.options.background = this.palette.background;
 
     this.init();
@@ -325,6 +325,16 @@ class App {
 
   updatePalette() {
     this.onResize();
+  }
+
+  pickRandomPalette() {
+    let ok = false;
+
+    while (!ok) {
+      this.palette = tome.get();
+      ok = !this.palette.colors.includes(this.palette.background);
+      console.log(this.palette);
+    }
   }
 }
 
