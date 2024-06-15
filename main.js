@@ -71,7 +71,29 @@ class App {
 
     Events.on(this.runner, "tick", this.draw);
 
-    window.addEventListener("deviceorientation", this.updateGravity, false);
+    if (typeof DeviceMotionEvent.requestPermission === "function") {
+      const buttonEl = document.querySelector("[data-allow-orientation]");
+      buttonEl.style.display = "block";
+      buttonEl.addEventListener("click", () => {
+        DeviceOrientationEvent.requestPermission()
+          .then((response) => {
+            buttonEl.style.display = "none";
+            if (response == "granted") {
+              window.addEventListener(
+                "deviceorientation",
+                this.updateGravity,
+                false
+              );
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+            buttonEl.style.display = "none";
+          });
+      });
+    } else {
+      window.addEventListener("deviceorientation", this.updateGravity, false);
+    }
 
     this.buttonEl = document.querySelector("[data-button]");
     this.buttonEl.addEventListener("click", this.updatePalette);

@@ -11,6 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation;
 }
 
 a {
@@ -116,15 +117,6 @@ canvas {
   bottom: 20px;
   right: 20px;
   background-color: white;
-  opacity: 0.5;
-}
-
-.refresh:hover {
-  opacity: 1;
-}
-
-.refresh:focus {
-  outline: none;
 }
 
 .refresh svg {
@@ -132,4 +124,16 @@ canvas {
   width: 20px;
   height: 20px;
   fill: black;
+}
+
+.device-orientation-access {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  bottom: 20px;
+  left: 20px;
+  color: black;
+  font-size: 13px;
+  background-color: white;
+  border-width: 0;
 }
